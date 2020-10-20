@@ -19,8 +19,12 @@ RSpec.feature "ProductDetails", type: :feature, js: true do
   scenario "users can add to cart and see the product in checkout" do
     # ACT
     visit root_path
+    expect(page).to have_content("My Cart (0)")
+
     first("article.product").find_button("Add").click
 
+    expect(page).to have_content("My Cart (1)")
+    
     find_link("My Cart (1)").click
     # VERIFY
     expect(page).to have_content "TOTAL:"
