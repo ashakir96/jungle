@@ -5,41 +5,41 @@ RSpec.describe User, type: :model do
   describe 'Validations' do
 
     it "validates the user" do
-      @user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => "password123")
-      @user.save!
-      expect(@user).to be_instance_of(User)
+      user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => "password123")
+      user.save!
+      expect(user).to be_instance_of(User)
     end
 
     it "validates that the passwords match" do
-      @user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => "password12")
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => "password12")
+      user.valid?
+      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
 
     it "validates the password" do
-      @user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => nil, :password_confirmation => "password12")
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Password can't be blank")
+      user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => nil, :password_confirmation => "password12")
+      user.valid?
+      expect(user.errors.full_messages).to include("Password can't be blank")
     end
 
     it "validates the password_confirmation" do
-      @user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => nil)
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Password confirmation can't be blank")
+      user = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => nil)
+      user.valid?
+      expect(user.errors.full_messages).to include("Password confirmation can't be blank")
     end
 
     it "validates the user email uniqueness" do
-      @user1 = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => "password123")
-      @user1.save!
-      @user2 = User.new(first_name: "Sammy", :last_name => "Goodladson", :email => "sam@g.com", :password => "password123", :password_confirmation => "password123")
-      @user2.valid?
-      expect(@user2.errors.full_messages).to include("Email has already been taken")
+      user1 = User.new(first_name: "Sam", :last_name => "Goodlad", :email => "sam@g.com", :password => "password123", :password_confirmation => "password123")
+      user1.save!
+      user2 = User.new(first_name: "Sammy", :last_name => "Goodladson", :email => "sam@g.com", :password => "password123", :password_confirmation => "password123")
+      user2.valid?
+      expect(@user.errors.full_messages).to include("Email has already been taken")
     end
     
     it "validates the password length" do
-      @user2 = User.new(first_name: "Sammy", :last_name => "Goodladson", :email => "sam@g.com", :password => "p123", :password_confirmation => "p123")
-      @user2.valid?
-      expect(@user2.errors.full_messages).to include("Password is too short (minimum is 7 characters)")
+      user2 = User.new(first_name: "Sammy", :last_name => "Goodladson", :email => "sam@g.com", :password => "p123", :password_confirmation => "p123")
+      user2.valid?
+      expect(user2.errors.full_messages).to include("Password is too short (minimum is 7 characters)")
     end
 
   end
